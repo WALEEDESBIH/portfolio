@@ -9,6 +9,10 @@
   <meta name="theme-color" content="#0b1220" />
   <link rel="canonical" href="https://waleedesbih.github.io/portfolio/" />
 
+  <!-- Site Icon (from assets/download.png) -->
+  <link rel="icon" type="image/png" href="assets/download.png" />
+  <link rel="apple-touch-icon" href="assets/download.png" />
+
   <!-- Open Graph -->
   <meta property="og:title" content="Waleed Esbih — Data Analyst & AI Developer" />
   <meta property="og:description" content="Portfolio: Data Analysis, Dashboards, AI Development. Projects + Contact." />
@@ -18,7 +22,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css" />
 
@@ -39,11 +43,25 @@
 </head>
 
 <body>
+  <!-- Scroll progress -->
+  <div class="scrollProgress" aria-hidden="true">
+    <div class="scrollBar" id="scrollBar"></div>
+  </div>
+
+  <!-- Floating background blobs -->
+  <div class="bgFX" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+  </div>
+
   <!-- Top Nav -->
-  <header class="topbar">
+  <header class="topbar" id="topbar">
     <div class="container nav">
       <a class="brand" href="#top" aria-label="Home">
-        <span class="brandMark">W</span>
+        <span class="brandIconWrap" aria-hidden="true">
+          <img class="brandIcon" src="assets/download.png" alt="" />
+        </span>
         <span class="brandText">Waleed Esbih</span>
       </a>
 
@@ -54,6 +72,7 @@
         <a href="#github" data-i18n="nav_github">GitHub</a>
         <a href="#projects" data-i18n="nav_projects">Projects</a>
         <a href="#contact" data-i18n="nav_contact">Contact</a>
+        <span class="navIndicator" id="navIndicator" aria-hidden="true"></span>
       </nav>
 
       <div class="navActions">
@@ -69,9 +88,9 @@
 
   <main id="top">
     <!-- HERO -->
-    <section class="hero">
+    <section class="hero" id="hero">
       <div class="container heroGrid">
-        <div class="heroText reveal">
+        <div class="heroText reveal" data-anim="up">
           <div class="badge">
             <span class="dot"></span>
             <span data-i18n="hero_badge">Available for freelance & opportunities</span>
@@ -101,7 +120,7 @@
           </div>
         </div>
 
-        <div class="heroCard reveal">
+        <div class="heroCard reveal tilt" data-anim="right" id="tiltCard">
           <div class="profile">
             <img class="avatar" src="https://github.com/WALEEDESBIH.png" alt="Waleed Esbih" loading="lazy">
             <div>
@@ -133,22 +152,25 @@
             <a class="mini" href="https://www.linkedin.com/in/waleed-esbih-509a27240" target="_blank" rel="noreferrer">LinkedIn</a>
             <a class="mini" id="waMini" href="#" target="_blank" rel="noreferrer">WhatsApp</a>
           </div>
+
+          <div class="cardShine" aria-hidden="true"></div>
         </div>
       </div>
 
-      <div class="heroGlow" aria-hidden="true"></div>
+      <div class="heroGlow" id="heroGlow" aria-hidden="true"></div>
+      <div class="heroRings" aria-hidden="true"></div>
     </section>
 
     <!-- ABOUT -->
     <section class="section" id="about">
       <div class="container">
-        <div class="sectionHead reveal">
+        <div class="sectionHead reveal" data-anim="up">
           <h2 data-i18n="about_title">About</h2>
           <p class="muted" data-i18n="about_sub">A short introduction about what I do.</p>
         </div>
 
         <div class="grid2">
-          <article class="card reveal">
+          <article class="card reveal tilt" data-anim="left">
             <h3 data-i18n="about_h1">What I deliver</h3>
             <ul class="list">
               <li><span class="bullet"></span><span data-i18n="about_li1">Clean data + EDA + clear insights</span></li>
@@ -156,9 +178,10 @@
               <li><span class="bullet"></span><span data-i18n="about_li3">AI features (recommendation systems, chatbots, ML models)</span></li>
               <li><span class="bullet"></span><span data-i18n="about_li4">Full delivery: API + UI + deployment-ready structure</span></li>
             </ul>
+            <div class="cardShine" aria-hidden="true"></div>
           </article>
 
-          <article class="card reveal">
+          <article class="card reveal tilt" data-anim="right">
             <h3 data-i18n="about_h2">Focus</h3>
             <div class="tagGrid">
               <span class="tag">Data Cleaning</span>
@@ -178,6 +201,7 @@
                 <div class="muted" data-i18n="note_sub">This site is bilingual (EN/AR). Use the top button to switch language.</div>
               </div>
             </div>
+            <div class="cardShine" aria-hidden="true"></div>
           </article>
         </div>
       </div>
@@ -186,50 +210,54 @@
     <!-- JOURNEY -->
     <section class="section" id="journey">
       <div class="container">
-        <div class="sectionHead reveal">
+        <div class="sectionHead reveal" data-anim="up">
           <h2 data-i18n="journey_title">My Journey</h2>
           <p class="muted" data-i18n="journey_sub">A quick timeline of experience & growth.</p>
         </div>
 
-        <div class="timeline reveal" id="timeline" aria-live="polite"></div>
+        <div class="timeline" id="timeline" aria-live="polite"></div>
       </div>
     </section>
 
     <!-- SKILLS -->
     <section class="section" id="skills">
       <div class="container">
-        <div class="sectionHead reveal">
+        <div class="sectionHead reveal" data-anim="up">
           <h2 data-i18n="skills_title">Tech Stack</h2>
           <p class="muted" data-i18n="skills_sub">Tools & technologies I use.</p>
         </div>
 
         <div class="skillsGrid">
-          <div class="card reveal">
+          <div class="card reveal tilt" data-anim="up">
             <h3 data-i18n="sk_cat1">Data</h3>
             <div class="skillPills">
               <span class="pill">Python</span><span class="pill">Pandas</span><span class="pill">NumPy</span><span class="pill">EDA</span><span class="pill">Data Cleaning</span>
             </div>
+            <div class="cardShine" aria-hidden="true"></div>
           </div>
 
-          <div class="card reveal">
+          <div class="card reveal tilt" data-anim="up">
             <h3 data-i18n="sk_cat2">SQL & BI</h3>
             <div class="skillPills">
               <span class="pill">SQL</span><span class="pill">MySQL</span><span class="pill">SQL Server</span><span class="pill">SQLite</span><span class="pill">Power BI</span><span class="pill">Metabase</span>
             </div>
+            <div class="cardShine" aria-hidden="true"></div>
           </div>
 
-          <div class="card reveal">
+          <div class="card reveal tilt" data-anim="up">
             <h3 data-i18n="sk_cat3">AI</h3>
             <div class="skillPills">
               <span class="pill">scikit-learn</span><span class="pill">Recommendation Systems</span><span class="pill">Feature Engineering</span><span class="pill">Chatbots</span>
             </div>
+            <div class="cardShine" aria-hidden="true"></div>
           </div>
 
-          <div class="card reveal">
+          <div class="card reveal tilt" data-anim="up">
             <h3 data-i18n="sk_cat4">Web & Tools</h3>
             <div class="skillPills">
               <span class="pill">Django</span><span class="pill">APIs</span><span class="pill">Git</span><span class="pill">Docker (basic)</span>
             </div>
+            <div class="cardShine" aria-hidden="true"></div>
           </div>
         </div>
       </div>
@@ -238,17 +266,26 @@
     <!-- GITHUB -->
     <section class="section" id="github">
       <div class="container">
-        <div class="sectionHead reveal">
+        <div class="sectionHead reveal" data-anim="up">
           <h2 data-i18n="gh_title">GitHub Activity</h2>
           <p class="muted" data-i18n="gh_sub">Live stats fetched from GitHub.</p>
         </div>
 
         <div class="ghGrid">
-          <div class="card reveal">
+          <div class="card reveal tilt" data-anim="left">
             <div class="kpiRow">
-              <div class="kpi"><div class="kpiNum" id="kpiRepos">—</div><div class="kpiLab" data-i18n="gh_repos">Public Repos</div></div>
-              <div class="kpi"><div class="kpiNum" id="kpiStars">—</div><div class="kpiLab" data-i18n="gh_stars">Total Stars</div></div>
-              <div class="kpi"><div class="kpiNum" id="kpiFollowers">—</div><div class="kpiLab" data-i18n="gh_followers">Followers</div></div>
+              <div class="kpi">
+                <div class="kpiNum" id="kpiRepos" data-count="0">—</div>
+                <div class="kpiLab" data-i18n="gh_repos">Public Repos</div>
+              </div>
+              <div class="kpi">
+                <div class="kpiNum" id="kpiStars" data-count="0">—</div>
+                <div class="kpiLab" data-i18n="gh_stars">Total Stars</div>
+              </div>
+              <div class="kpi">
+                <div class="kpiNum" id="kpiFollowers" data-count="0">—</div>
+                <div class="kpiLab" data-i18n="gh_followers">Followers</div>
+              </div>
             </div>
 
             <div class="divider"></div>
@@ -258,12 +295,14 @@
             <div class="btnRow">
               <a class="ghostBtn" href="https://github.com/WALEEDESBIH" target="_blank" rel="noreferrer" data-i18n="gh_view_profile">View Profile</a>
             </div>
+            <div class="cardShine" aria-hidden="true"></div>
           </div>
 
-          <div class="card reveal">
+          <div class="card reveal tilt" data-anim="right">
             <h3 class="miniHead" data-i18n="gh_langs">Top Languages</h3>
             <div class="langBars" id="langBars"></div>
             <p class="muted tiny" data-i18n="gh_note">These are estimated from your public repositories.</p>
+            <div class="cardShine" aria-hidden="true"></div>
           </div>
         </div>
       </div>
@@ -272,7 +311,7 @@
     <!-- PROJECTS -->
     <section class="section" id="projects">
       <div class="container">
-        <div class="sectionHead reveal">
+        <div class="sectionHead reveal" data-anim="up">
           <h2 data-i18n="projects_title">Projects</h2>
           <p class="muted" data-i18n="projects_sub">Selected projects with screenshots & links.</p>
         </div>
@@ -284,13 +323,13 @@
     <!-- CONTACT -->
     <section class="section" id="contact">
       <div class="container">
-        <div class="sectionHead reveal">
+        <div class="sectionHead reveal" data-anim="up">
           <h2 data-i18n="contact_title">Get in touch</h2>
           <p class="muted" data-i18n="contact_sub">Let’s discuss work, freelance, or collaborations.</p>
         </div>
 
         <div class="grid2">
-          <div class="card reveal">
+          <div class="card reveal tilt" data-anim="left">
             <div class="contactItem">
               <span class="cIcon">💬</span>
               <div>
@@ -319,9 +358,11 @@
               <a class="mainBtn" id="waBtnContact" href="#" target="_blank" rel="noreferrer" data-i18n="contact_whatsapp">WhatsApp Me</a>
               <a class="ghostBtn" href="mailto:waleedesbih212@gmail.com" data-i18n="contact_email">Send Email</a>
             </div>
+
+            <div class="cardShine" aria-hidden="true"></div>
           </div>
 
-          <div class="card reveal">
+          <div class="card reveal tilt" data-anim="right">
             <h3 class="miniHead" data-i18n="contact_form">Quick Message</h3>
             <p class="muted" data-i18n="contact_form_sub">Opens your email app with a prepared message.</p>
 
@@ -335,6 +376,8 @@
               <button class="mainBtn" type="submit" data-i18n="form_send">Open Email</button>
               <div class="muted tiny" data-i18n="form_note">No data stored — it only creates a mailto link.</div>
             </form>
+
+            <div class="cardShine" aria-hidden="true"></div>
           </div>
         </div>
       </div>
