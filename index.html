@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Waleed Esbih — Data Analyst & AI Developer</title>
+  <meta name="description" content="Waleed Esbih — Data Analyst & AI Developer. Portfolio, services, projects, and contact." />
+  <meta name="theme-color" content="#0b1220" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="header" id="top">
+    <div class="container nav">
+      <a class="logo" href="#top" aria-label="Home">
+        <span class="logoMark">W</span>
+        <span class="logoText">Waleed Esbih</span>
+      </a>
+
+      <nav class="links" aria-label="Primary">
+        <a href="#about" data-i18n="nav_about">About</a>
+        <a href="#skills" data-i18n="nav_skills">Skills</a>
+        <a href="#services" data-i18n="nav_services">Services</a>
+        <a href="#projects" data-i18n="nav_projects">Projects</a>
+        <a href="#contact" data-i18n="nav_contact">Contact</a>
+      </nav>
+
+      <div class="actions">
+        <button class="langBtn" id="langBtn" type="button" aria-label="Toggle language">
+          <span class="pill">EN / AR</span>
+        </button>
+
+        <a class="btn ghost" href="https://www.linkedin.com/in/waleed-esbih-509a27240" target="_blank" rel="noreferrer">
+          LinkedIn
+        </a>
+
+        <a class="btn ghost" href="https://github.com/WALEEDESBIH" target="_blank" rel="noreferrer">
+          GitHub
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container heroGrid">
+        <div class="heroLeft">
+          <div class="badge">
+            <span class="dot"></span>
+            <span data-i18n="hero_badge">Open to opportunities • Data / AI</span>
+          </div>
+
+          <h1 class="title">
+            <span data-i18n="hero_hi">Hi, I’m</span>
+            <span class="name">Waleed Esbih</span>
+          </h1>
+
+          <p class="subtitle" data-i18n="hero_role">
+            Data Analyst & AI Developer — I help businesses turn data into dashboards and build AI features that improve decisions.
+          </p>
+
+          <div class="ctaRow">
+            <a class="btn" href="#projects" data-i18n="hero_cta_projects">View Projects</a>
+            <a class="btn ghost" id="waBtnTop" href="#" target="_blank" rel="noreferrer" data-i18n="hero_cta_whatsapp">WhatsApp</a>
+            <a class="btn ghost" href="mailto:waleedesbih212@gmail.com" data-i18n="hero_cta_email">Email Me</a>
+          </div>
+
+          <div class="quick">
+            <a class="chip" href="mailto:waleedesbih212@gmail.com">
+              <span class="chipKey" data-i18n="hero_email_label">Email</span>
+              <span class="chipVal">waleedesbih212@gmail.com</span>
+            </a>
+            <a class="chip" href="https://github.com/WALEEDESBIH" target="_blank" rel="noreferrer">
+              <span class="chipKey" data-i18n="hero_github_label">GitHub</span>
+              <span class="chipVal">/WALEEDESBIH</span>
+            </a>
+            <a class="chip" href="https://www.linkedin.com/in/waleed-esbih-509a27240" target="_blank" rel="noreferrer">
+              <span class="chipKey">LinkedIn</span>
+              <span class="chipVal">/waleed-esbih</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="heroRight">
+          <div class="card profileCard">
+            <div class="avatar" aria-hidden="true">
+              <span>WE</span>
+            </div>
+            <div>
+              <h2 class="profileName">Waleed Esbih</h2>
+              <p class="profileRole">Data Analyst • AI Developer</p>
+              <p class="muted" data-i18n="hero_note">
+                Dashboards, SQL, data cleaning, and ML-powered systems (recommenders / chatbots / predictive models).
+              </p>
+              <div class="profileLinks">
+                <a class="miniLink" href="mailto:waleedesbih212@gmail.com">Email</a>
+                <a class="miniLink" href="https://github.com/WALEEDESBIH" target="_blank" rel="noreferrer">GitHub</a>
+                <a class="miniLink" href="https://www.linkedin.com/in/waleed-esbih-509a27240" target="_blank" rel="noreferrer">LinkedIn</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <div class="statNum">Data</div>
+              <div class="statTxt" data-i18n="stat_1">Analysis & Dashboards</div>
+            </div>
+            <div class="stat">
+              <div class="statNum">AI</div>
+              <div class="statTxt" data-i18n="stat_2">ML & Recommendations</div>
+            </div>
+            <div class="stat">
+              <div class="statNum">Web</div>
+              <div class="statTxt" data-i18n="stat_3">Full-Stack Delivery</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="heroGlow" aria-hidden="true"></div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="sectionHead">
+          <h2 data-i18n="about_title">About</h2>
+          <p class="muted" data-i18n="about_sub">Short summary + what I focus on.</p>
+        </div>
+
+        <div class="grid2">
+          <div class="card">
+            <h3 data-i18n="about_h">Who I am</h3>
+            <p class="muted" data-i18n="about_p">
+              I’m a Data Analyst & AI Developer. I enjoy cleaning data, building dashboards, writing SQL, and creating ML-powered features that users can actually benefit from.
+            </p>
+            <ul class="list">
+              <li><span class="bullet"></span><span data-i18n="about_li1">Python / Pandas / NumPy / scikit-learn</span></li>
+              <li><span class="bullet"></span><span data-i18n="about_li2">SQL (MySQL / SQL Server / SQLite) + BI (Power BI / Metabase)</span></li>
+              <li><span class="bullet"></span><span data-i18n="about_li3">Django / FastAPI + clean APIs</span></li>
+              <li><span class="bullet"></span><span data-i18n="about_li4">Docker basics + deployment-ready structure</span></li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 data-i18n="about_focus">Focus</h3>
+            <div class="pillGrid">
+              <span class="pillTag" data-i18n="focus_1">Data Cleaning</span>
+              <span class="pillTag" data-i18n="focus_2">EDA</span>
+              <span class="pillTag" data-i18n="focus_3">Dashboards</span>
+              <span class="pillTag" data-i18n="focus_4">ML Models</span>
+              <span class="pillTag" data-i18n="focus_5">Recommenders</span>
+              <span class="pillTag" data-i18n="focus_6">APIs</span>
+              <span class="pillTag" data-i18n="focus_7">Automation</span>
+              <span class="pillTag" data-i18n="focus_8">System Design</span>
+            </div>
+
+            <div class="callout">
+              <div class="calloutIcon">★</div>
+              <div>
+                <div class="calloutTitle" data-i18n="callout_t">Portfolio note</div>
+                <div class="muted" data-i18n="callout_p">This site is bilingual (EN/AR). Use the button at the top to switch language.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section" id="skills">
+      <div class="container">
+        <div class="sectionHead">
+          <h2 data-i18n="skills_title">Skills</h2>
+          <p class="muted" data-i18n="skills_sub">Tools & technologies I use.</p>
+        </div>
+
+        <div class="skillsGrid">
+          <div class="card">
+            <h3 data-i18n="skills_data">Data</h3>
+            <p class="muted">Python • Pandas • NumPy • EDA • Data Cleaning</p>
+          </div>
+          <div class="card">
+            <h3 data-i18n="skills_sql">SQL & BI</h3>
+            <p class="muted">SQL • MySQL • SQL Server • SQLite • Power BI • Metabase</p>
+          </div>
+          <div class="card">
+            <h3 data-i18n="skills_ml">ML & AI</h3>
+            <p class="muted">scikit-learn • Recommendation Systems • Feature Engineering • Chatbots</p>
+          </div>
+          <div class="card">
+            <h3 data-i18n="skills_web">Web</h3>
+            <p class="muted">Django • REST APIs • HTML/CSS/JS • Git • Docker (basic)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section" id="services">
+      <div class="container">
+        <div class="sectionHead">
+          <h2 data-i18n="services_title">Services</h2>
+          <p class="muted" data-i18n="services_sub">What I can deliver for clients.</p>
+        </div>
+
+        <div class="servicesGrid">
+          <article class="card">
+            <h3 data-i18n="service1_t">Data Analysis & Dashboards</h3>
+            <p class="muted" data-i18n="service1_p">
+              Data cleaning, EDA, KPI reporting, SQL queries, and dashboards that are easy to read and decision-ready.
+            </p>
+            <div class="projectMeta">
+              <span class="tag" data-i18n="service1_tag1">Cleaning</span>
+              <span class="tag" data-i18n="service1_tag2">EDA</span>
+              <span class="tag" data-i18n="service1_tag3">Power BI</span>
+              <span class="tag" data-i18n="service1_tag4">Metabase</span>
+              <span class="tag" data-i18n="service1_tag5">SQL</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3 data-i18n="service2_t">AI Development</h3>
+            <p class="muted" data-i18n="service2_p">
+              ML models, recommendation systems, chatbots, and AI features integrated into web apps (Django/FastAPI).
+            </p>
+            <div class="projectMeta">
+              <span class="tag" data-i18n="service2_tag1">ML</span>
+              <span class="tag" data-i18n="service2_tag2">Recommenders</span>
+              <span class="tag" data-i18n="service2_tag3">Chatbots</span>
+              <span class="tag" data-i18n="service2_tag4">APIs</span>
+              <span class="tag" data-i18n="service2_tag5">Deployment</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="sectionHead">
+          <h2 data-i18n="projects_title">Projects</h2>
+          <p class="muted" data-i18n="projects_sub">Selected work — with screenshots and repo links.</p>
+        </div>
+
+        <div class="projectsGrid" id="projectsGrid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="sectionHead">
+          <h2 data-i18n="contact_title">Contact</h2>
+          <p class="muted" data-i18n="contact_sub">Let’s talk about roles, freelance work, or collaborations.</p>
+        </div>
+
+        <div class="grid2">
+          <div class="card">
+            <h3 data-i18n="contact_h">Get in touch</h3>
+            <p class="muted" data-i18n="contact_p">
+              Fastest way: WhatsApp or email. You can also check my GitHub and LinkedIn.
+            </p>
+
+            <div class="contactRow">
+              <span class="icon">💬</span>
+              <a id="waLinkContact" href="#" target="_blank" rel="noreferrer">WhatsApp</a>
+            </div>
+
+            <div class="contactRow">
+              <span class="icon">✉</span>
+              <a href="mailto:waleedesbih212@gmail.com">waleedesbih212@gmail.com</a>
+            </div>
+
+            <div class="contactRow">
+              <span class="icon">⌂</span>
+              <a href="https://github.com/WALEEDESBIH" target="_blank" rel="noreferrer">github.com/WALEEDESBIH</a>
+            </div>
+
+            <div class="contactRow">
+              <span class="icon">in</span>
+              <a href="https://www.linkedin.com/in/waleed-esbih-509a27240" target="_blank" rel="noreferrer">LinkedIn Profile</a>
+            </div>
+
+            <div class="ctaRow">
+              <a class="btn" id="waBtnContact" href="#" target="_blank" rel="noreferrer" data-i18n="contact_cta_whatsapp">WhatsApp Me</a>
+              <a class="btn ghost" href="mailto:waleedesbih212@gmail.com" data-i18n="contact_cta_email">Send Email</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 data-i18n="whatsapp_qr_t">WhatsApp QR</h3>
+            <p class="muted" data-i18n="whatsapp_qr_p">Scan to open WhatsApp chat.</p>
+
+            <div class="qrWrap">
+              <img class="qrImg" src="assets/whatsapp-qr.png" alt="WhatsApp QR" />
+            </div>
+
+            <p class="tiny muted" data-i18n="whatsapp_hint">
+              If the QR doesn’t work, update the WhatsApp link in script.js (WHATSAPP_LINK).
+            </p>
+
+            <hr class="hr" />
+
+            <h3 data-i18n="contact_form_title">Quick message</h3>
+            <p class="muted" data-i18n="contact_form_sub">This opens your email app with a prepared message.</p>
+
+            <form id="contactForm">
+              <label class="label" for="subject" data-i18n="form_subject">Subject</label>
+              <input id="subject" name="subject" class="input" placeholder="Opportunity / Project / Question" />
+
+              <label class="label" for="message" data-i18n="form_message">Message</label>
+              <textarea id="message" name="message" class="input" rows="5" placeholder="Write your message..."></textarea>
+
+              <button class="btn" type="submit" data-i18n="form_send">Open Email</button>
+              <p class="tiny muted" data-i18n="form_note">No data is stored — it just creates a mailto link.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container footerRow">
+        <span class="muted">© <span id="year"></span> Waleed Esbih</span>
+        <a class="toTop" href="#top" data-i18n="back_top">Back to top ↑</a>
+      </div>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
