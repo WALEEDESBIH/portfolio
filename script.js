@@ -27,16 +27,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const TIMELINE = [
     {
-      date_en: "2025/9",
-      date_ar: "2025/12",
+      date_en: "2025/9 - 2025/12",
+      date_ar: "2025/9 - 2025/12",
       title_en: "Data Analyst — ZeeDimension",
       title_ar: "محلل بيانات — ZeeDimension",
       desc_en: "Data analysis, reporting, dashboards, and SQL work on real datasets.",
       desc_ar: "تحليل بيانات وتقارير وداشبورد وSQL على بيانات واقعية."
     },
     {
-      date_en: "2022/8",
-      date_ar: "2022/12",
+      date_en: "2022/8 - 2022/12",
+      date_ar: "2022/8 - 2022/12",
       title_en: "Customer Service — Crystal Call Center",
       title_ar: "خدمة عملاء — Crystal Call Center",
       desc_en: "Handled customer inquiries and problem solving with high responsibility.",
