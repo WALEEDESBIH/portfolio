@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const WA_TEXT_EN = "Hi Waleed, I saw your portfolio and I need data analysis or AI development.";
   const WA_TEXT_AR = "مرحبا وليد، شفت البورتفوليو وبدي خدمة تحليل بيانات أو برمجة ذكاء اصطناعي.";
 
-  // Projects (add screenshots if you want later)
   const PROJECTS = [
     {
       title: "Inventory Management System",
@@ -14,9 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
       desc_ar: "نظام إدارة مخزون مع لوحة تحكم ورسوم وتنبيهات وميزات إدارة.",
       tags: ["Dashboard", "Inventory", "Charts"],
       img: "assets/inventory.png",
-      links: [
-        { label: "GitHub", url: "https://github.com/WALEEDESBIH/last" }
-      ]
+      links: [{ label: "GitHub", url: "https://github.com/WALEEDESBIH/last" }]
     },
     {
       title: "Smartphone Recommender (Django)",
@@ -24,13 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
       desc_ar: "نظام توصية مع شات بوت للتفضيلات وترشيح ذكي.",
       tags: ["Django", "Recommender", "Chatbot"],
       img: "assets/recommender.png",
-      links: [
-        { label: "GitHub", url: "https://github.com/WALEEDESBIH/Smartphone-Recommender" }
-      ]
+      links: [{ label: "GitHub", url: "https://github.com/WALEEDESBIH/Smartphone-Recommender" }]
     }
   ];
 
-  // Timeline (edit freely)
   const TIMELINE = [
     {
       date_en: "2024",
@@ -193,8 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function setWhatsAppLinks() {
     const link = waLinkForLang(lang);
-    const ids = ["waBtnTop","waBtnContact","waLinkContact","waMini"];
-    ids.forEach(id => {
+    ["waBtnTop","waBtnContact","waLinkContact","waMini"].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.href = link;
     });
@@ -203,6 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function applyI18n() {
     document.documentElement.lang = lang;
     document.documentElement.dir = (lang === "ar") ? "rtl" : "ltr";
+
     document.querySelectorAll("[data-i18n]").forEach(el => {
       const key = el.getAttribute("data-i18n");
       const v = I18N[lang]?.[key];
@@ -214,6 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const root = $("#timeline");
     if (!root) return;
     root.innerHTML = "";
+
     TIMELINE.forEach(item => {
       const wrap = document.createElement("div");
       wrap.className = "tItem";
@@ -247,7 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!grid) return;
     grid.innerHTML = "";
 
-    PROJECTS.forEach(p => {
+    PROJECTS.forEach((p) => {
       const card = document.createElement("article");
       card.className = "card pCard reveal";
 
@@ -296,21 +291,33 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Simple reveal animations
   function initReveal() {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const nodes = Array.from(document.querySelectorAll(".reveal"));
+
+    if (reduce) {
+      nodes.forEach(el => el.classList.add("show"));
+      return;
+    }
+
+    // Stagger delay for nice "one-by-one" entrance
+    nodes.forEach((el, i) => {
+      el.style.transitionDelay = `${Math.min(i * 60, 360)}ms`;
+    });
+
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) e.target.classList.add("show");
       });
     }, { threshold: 0.12 });
 
-    document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+    nodes.forEach(el => io.observe(el));
   }
 
-  // Contact form -> mailto
   function initContactForm() {
     const form = $("#contactForm");
     if (!form) return;
+
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       const subject = ($("#subject")?.value || "").trim() || "Portfolio message";
@@ -318,6 +325,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const mailto = `mailto:waleedesbih212@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
       window.location.href = mailto;
     });
+  }
+
+  function initYear() {
+    const y = $("#year");
+    if (y) y.textContent = new Date().getFullYear();
   }
 
   async function loadGitHubStats() {
@@ -339,7 +351,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (kpiStars) kpiStars.textContent = totalStars;
     if (kpiFollowers) kpiFollowers.textContent = user.followers ?? "—";
 
-    // Recently updated repos
     const list = $("#repoList");
     if (list) {
       list.innerHTML = "";
@@ -363,12 +374,12 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    // Languages (rough estimation)
+    // Rough language estimation
     const langCounts = {};
     repos.forEach(r => {
-      const lang = r.language;
-      if (!lang) return;
-      langCounts[lang] = (langCounts[lang] || 0) + 1;
+      const l = r.language;
+      if (!l) return;
+      langCounts[l] = (langCounts[l] || 0) + 1;
     });
 
     const sorted = Object.entries(langCounts).sort((a,b) => b[1]-a[1]).slice(0, 6);
@@ -389,20 +400,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const meter = document.createElement("div");
         meter.className = "meter";
+
         const fill = document.createElement("div");
-        fill.style.width = `${pct}%`;
+        fill.style.width = "0%";
         meter.appendChild(fill);
 
         box.appendChild(top);
         box.appendChild(meter);
         bars.appendChild(box);
+
+        // animate fill after mount
+        requestAnimationFrame(() => {
+          fill.style.width = `${pct}%`;
+        });
       });
     }
-  }
-
-  function initYear() {
-    const y = $("#year");
-    if (y) y.textContent = new Date().getFullYear();
   }
 
   function applyAll() {
@@ -412,7 +424,6 @@ document.addEventListener("DOMContentLoaded", () => {
     renderProjects();
   }
 
-  // Toggle language
   const langBtn = $("#langBtn");
   if (langBtn) {
     langBtn.addEventListener("click", () => {
