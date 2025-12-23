@@ -196,7 +196,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function applyI18n() {
     document.documentElement.lang = lang;
     document.documentElement.dir = (lang === "ar") ? "rtl" : "ltr";
-
     document.querySelectorAll("[data-i18n]").forEach(el => {
       const key = el.getAttribute("data-i18n");
       const v = I18N[lang]?.[key];
@@ -208,10 +207,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const root = $("#timeline");
     if (!root) return;
     root.innerHTML = "";
+    TIMELINE.forEach(() => {}); // keep lint calm
 
-    TIMELINE.forEach(item => {
+    TIMELINE.forEach((item) => {
       const wrap = document.createElement("div");
-      wrap.className = "tItem";
+      wrap.className = "tItem reveal";
+      wrap.dataset.anim = "up";
 
       const date = document.createElement("div");
       date.className = "tDate";
@@ -244,14 +245,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     PROJECTS.forEach((p) => {
       const card = document.createElement("article");
-      card.className = "card pCard reveal";
+      card.className = "card pCard reveal tilt";
+      card.dataset.anim = "up";
 
       const img = document.createElement("img");
       img.className = "pImg";
       img.src = p.img;
       img.alt = p.title;
       img.loading = "lazy";
-      img.onerror = () => img.remove();
+      img.onerror = () => {
+        // If image missing, remove it and keep clean layout
+        img.remove();
+      };
 
       const title = document.createElement("h3");
       title.className = "pTitle";
@@ -281,16 +286,41 @@ document.addEventListener("DOMContentLoaded", () => {
         links.appendChild(a);
       });
 
+      const shine = document.createElement("div");
+      shine.className = "cardShine";
+      shine.setAttribute("aria-hidden","true");
+
       card.appendChild(img);
       card.appendChild(title);
       card.appendChild(desc);
       card.appendChild(tags);
       card.appendChild(links);
+      card.appendChild(shine);
 
       grid.appendChild(card);
     });
   }
 
+  // Smooth scroll with sticky header offset
+  function initSmoothAnchors() {
+    const header = $("#topbar");
+    const offset = () => (header ? header.getBoundingClientRect().height + 10 : 70);
+
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener("click", (e) => {
+        const id = a.getAttribute("href");
+        if (!id || id === "#") return;
+        const target = document.querySelector(id);
+        if (!target) return;
+
+        e.preventDefault();
+        const top = window.scrollY + target.getBoundingClientRect().top - offset();
+        window.scrollTo({ top, behavior: "smooth" });
+      });
+    });
+  }
+
+  // Reveal + stagger (strong)
   function initReveal() {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const nodes = Array.from(document.querySelectorAll(".reveal"));
@@ -300,20 +330,124 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Stagger delay for nice "one-by-one" entrance
+    // Stagger timing
     nodes.forEach((el, i) => {
-      el.style.transitionDelay = `${Math.min(i * 60, 360)}ms`;
+      el.style.transitionDelay = `${Math.min(i * 55, 420)}ms`;
     });
 
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) e.target.classList.add("show");
       });
-    }, { threshold: 0.12 });
+    }, { threshold: 0.14 });
 
     nodes.forEach(el => io.observe(el));
   }
 
+  // Scroll progress bar
+  function initScrollProgress() {
+    const bar = $("#scrollBar");
+    if (!bar) return;
+
+    const onScroll = () => {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - doc.clientHeight;
+      const p = max > 0 ? (doc.scrollTop / max) : 0;
+      bar.style.width = `${Math.min(100, Math.max(0, p * 100))}%`;
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+
+  // Active nav indicator
+  function initActiveNav() {
+    const nav = document.querySelector(".navLinks");
+    const indicator = $("#navIndicator");
+    if (!nav || !indicator) return;
+
+    const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
+    const sections = links
+      .map(a => document.querySelector(a.getAttribute("href")))
+      .filter(Boolean);
+
+    function setIndicatorTo(link) {
+      const r = link.getBoundingClientRect();
+      const nr = nav.getBoundingClientRect();
+      indicator.style.opacity = "1";
+      indicator.style.width = `${Math.max(16, r.width - 10)}px`;
+      indicator.style.transform = `translateX(${r.left - nr.left + 5}px)`;
+    }
+
+    // hover indicator
+    links.forEach(a => {
+      a.addEventListener("mouseenter", () => setIndicatorTo(a));
+    });
+    nav.addEventListener("mouseleave", () => {
+      // keep last active
+    });
+
+    const io = new IntersectionObserver((entries) => {
+      // choose most visible
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+      if (!visible) return;
+      const id = `#${visible.target.id}`;
+      const activeLink = links.find(a => a.getAttribute("href") === id);
+      if (activeLink) setIndicatorTo(activeLink);
+    }, { threshold: [0.2,0.35,0.5,0.65] });
+
+    sections.forEach(s => io.observe(s));
+
+    // initial
+    const first = links[0];
+    if (first) setIndicatorTo(first);
+  }
+
+  // Parallax glow (light)
+  function initHeroParallax() {
+    const glow = $("#heroGlow");
+    if (!glow) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
+
+    const onMove = (e) => {
+      const x = (e.clientX / window.innerWidth) - 0.5;
+      const y = (e.clientY / window.innerHeight) - 0.5;
+      glow.style.transform = `translateY(${y * -10}px) translateX(${x * 12}px)`;
+    };
+
+    window.addEventListener("mousemove", onMove, { passive: true });
+  }
+
+  // 3D tilt for cards with class .tilt (hover)
+  function initTiltCards() {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
+
+    const cards = Array.from(document.querySelectorAll(".tilt"));
+    cards.forEach(card => {
+      card.addEventListener("mousemove", (e) => {
+        const r = card.getBoundingClientRect();
+        const mx = (e.clientX - r.left) / r.width;
+        const my = (e.clientY - r.top) / r.height;
+
+        const rx = (0.5 - my) * 8;
+        const ry = (mx - 0.5) * 10;
+
+        card.style.transform = `translateY(-4px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+        card.style.setProperty("--mx", `${mx*100}%`);
+        card.style.setProperty("--my", `${my*100}%`);
+      });
+
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "";
+      });
+    });
+  }
+
+  // Contact form -> mailto
   function initContactForm() {
     const form = $("#contactForm");
     if (!form) return;
@@ -332,6 +466,25 @@ document.addEventListener("DOMContentLoaded", () => {
     if (y) y.textContent = new Date().getFullYear();
   }
 
+  // Count-up animation
+  function animateCount(el, to) {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) { el.textContent = String(to); return; }
+
+    const start = 0;
+    const dur = 900;
+    const t0 = performance.now();
+
+    function tick(now) {
+      const p = Math.min(1, (now - t0) / dur);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const val = Math.round(start + (to - start) * eased);
+      el.textContent = String(val);
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
   async function loadGitHubStats() {
     const userUrl = `https://api.github.com/users/${GITHUB_USER}`;
     const reposUrl = `https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=updated`;
@@ -347,10 +500,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const kpiRepos = $("#kpiRepos");
     const kpiStars = $("#kpiStars");
     const kpiFollowers = $("#kpiFollowers");
-    if (kpiRepos) kpiRepos.textContent = user.public_repos ?? "—";
-    if (kpiStars) kpiStars.textContent = totalStars;
-    if (kpiFollowers) kpiFollowers.textContent = user.followers ?? "—";
 
+    if (kpiRepos) animateCount(kpiRepos, user.public_repos ?? 0);
+    if (kpiStars) animateCount(kpiStars, totalStars);
+    if (kpiFollowers) animateCount(kpiFollowers, user.followers ?? 0);
+
+    // Recently updated repos
     const list = $("#repoList");
     if (list) {
       list.innerHTML = "";
@@ -374,7 +529,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    // Rough language estimation
+    // Languages (rough)
     const langCounts = {};
     repos.forEach(r => {
       const l = r.language;
@@ -409,7 +564,6 @@ document.addEventListener("DOMContentLoaded", () => {
         box.appendChild(meter);
         bars.appendChild(box);
 
-        // animate fill after mount
         requestAnimationFrame(() => {
           fill.style.width = `${pct}%`;
         });
@@ -430,6 +584,7 @@ document.addEventListener("DOMContentLoaded", () => {
       lang = (lang === "en") ? "ar" : "en";
       localStorage.setItem("lang", lang);
       applyAll();
+      initReveal(); // re-observe because we recreated cards
     });
   }
 
@@ -437,6 +592,11 @@ document.addEventListener("DOMContentLoaded", () => {
   initYear();
   applyAll();
   initContactForm();
+  initSmoothAnchors();
+  initScrollProgress();
+  initActiveNav();
+  initHeroParallax();
+  initTiltCards();
   initReveal();
   loadGitHubStats().catch(() => {});
 });
